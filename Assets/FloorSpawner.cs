@@ -5,23 +5,46 @@ using UnityEngine;
 public class FloorSpawner : MonoBehaviour
 {
     public GameObject floor;
-    public LogicManager logic;
-    public float heighOffset;
-    public float spawnRate;
+
+    [SerializeField]
+    float heighOffset;
+
+    [SerializeField]
+    float spawnRate;
+
+    [SerializeField]
+    float spawnRateHigh;
+
+    [SerializeField]
+    float spawnRateLow;
+
+    [SerializeField]
+    float spawnDifference;
+
+    [SerializeField]
+    float spawnRateLowSubLimit;
+
+    [SerializeField]
+    float spawnRateHighSubLimit;
+
     private float timer = 0;
-    public float spawnRateHigh;
-    public float spawnRateLow;
+    
     // Start is called before the first frame update
-    void Start()
-    {
-        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicManager>();
-        spawnRateHigh = logic.spawnRateHigh;
-        spawnRateLow = logic.spawnRateLow;
-    }
+    void Start() {}
 
     // Update is called once per frame
     void Update()
     {
+        spawnRateLow -= spawnDifference;
+        spawnRateHigh -= spawnDifference;
+
+        if (spawnRateLow < spawnRateLowSubLimit) {
+            spawnRateLow = spawnRateLowSubLimit;
+        }
+        if (spawnRateHigh < spawnRateHighSubLimit) {
+            spawnRateHigh = spawnRateHighSubLimit;
+        }
+
         if(timer < spawnRate)
         {
             timer += Time.deltaTime;
@@ -30,7 +53,7 @@ public class FloorSpawner : MonoBehaviour
         {
             spawn();
             timer = 0;
-            spawnRate = Random.Range(1.8f, 2.8f);
+            spawnRate = Random.Range(spawnRateLow, spawnRateHigh);
         }
     }
     

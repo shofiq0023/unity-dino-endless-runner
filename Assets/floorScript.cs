@@ -4,26 +4,46 @@ using UnityEngine;
 
 public class floorScript : MonoBehaviour
 {
-    public LogicManager logic;
-    public float moveSpeed = 10;
-    public float deadZone = -30;
-    // Start is called before the first frame update
-    void Start()
+    
+    [SerializeField]
+    float moveSpeed;
+    
+    [SerializeField]
+    float speedLimit;
+
+    [SerializeField]
+    float speedIncreaseRate;
+
+    private float deadZone = -30;
+
+    private LogicManager logic;
+
+    void Start() 
     {
         logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicManager>();
         moveSpeed = logic.moveSpeed;
+        speedLimit = logic.moveSpeedLimit;
+        speedIncreaseRate = logic.speedIncreaseRate;
+        Debug.Log(moveSpeed);
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Move the floor every frame
         transform.position = transform.position + (Vector3.left * moveSpeed) * Time.deltaTime;
 
+        // Increase move speed
+        moveSpeed += speedIncreaseRate;
+        
+        if (moveSpeed > speedLimit) 
+        {
+            moveSpeed = speedLimit;
+        }
+
+        // Destroys object after reaching spicific x position
         if (transform.position.x < deadZone)
         {
             Destroy(gameObject);
-            logic.increaseSpeed();
-            Debug.Log(moveSpeed);
         }
     }
 }
