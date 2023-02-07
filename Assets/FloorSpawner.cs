@@ -33,7 +33,7 @@ public class FloorSpawner : MonoBehaviour
     void Start() {}
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         spawnRateLow -= spawnDifference;
         spawnRateHigh -= spawnDifference;

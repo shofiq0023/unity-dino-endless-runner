@@ -27,7 +27,7 @@ public class floorScript : MonoBehaviour
         Debug.Log(moveSpeed);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // Move the floor every frame
         transform.position = transform.position + (Vector3.left * moveSpeed) * Time.deltaTime;
