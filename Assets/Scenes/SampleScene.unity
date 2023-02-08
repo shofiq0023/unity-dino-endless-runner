@@ -272,11 +272,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 210781111}
   jumpPower: 31
-  extraJump: 0
+  jumpLimit: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   feet: {fileID: 627381956}
+  jumpCount: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
