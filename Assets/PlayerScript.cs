@@ -6,33 +6,30 @@ public class PlayerScript : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float jumpPower = 31;
-    public int extraJump = 1;
+    public int jumpLimit;
 
     [SerializeField] LayerMask groundLayer;
     [SerializeField] Transform feet;
 
-    int jumpCount = 0;
-    bool isGrounded;
-    float jumpCoolDown;
-
-
+    [SerializeField] int jumpCount = 0;
 
     // Start is called before the first frame update
     void Start() {}
 
     // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
+    void Update() {
+        if ((jumpCount < jumpLimit) && Input.GetKeyDown(KeyCode.Space)) {
             jump();
         }
     }
 
-    void jump()
-    {
+    void jump() {
         rb.velocity = Vector2.up * jumpPower;
         jumpCount++;
+    }
+
+    public void ResetJump() {
+        jumpCount = 0;
     }
     
 }
